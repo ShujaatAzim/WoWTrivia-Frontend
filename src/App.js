@@ -19,7 +19,7 @@ function App() {
  
   return (
     <div>
-      <h1>WoW Trivia!</h1>
+      <h1>WoW Trivia</h1>
       <QuestionContainer randomQuestionGen={randomQuestionGen} randomQuestion={randomQuestion} />
     </div>
   );
