@@ -13,8 +13,8 @@ function App() {
   }, [])
 
   const randomQuestionGen = () => {
-    let randomIndex = Math.floor(Math.random() * (allQuestions.length))
-    setRandomQuestion(allQuestions[randomIndex])
+      let randomIndex = Math.floor(Math.random() * (allQuestions.length))
+      setRandomQuestion(allQuestions[randomIndex])
   }
  
   return (

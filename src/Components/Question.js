@@ -5,9 +5,21 @@ const Question = props => {
   const [answer, setAnswer] = useState("")
   const [questionAnswer] = useState(props.question.answer)
 
+  const handleCorrect = () => {
+    props.setScore(props.score + 1)
+    props.setCorrect(true)
+  }
+
+  const handleIncorrect = () => {
+    props.setScore(props.score - 1)
+    props.setIncorrect(true)
+  }
+ 
   const handleSubmit = e => {
     e.preventDefault()
-    questionAnswer.toLowerCase() === answer.toLowerCase() ? console.log("correct") : console.log("incorrect")
+    questionAnswer.toLowerCase() === answer.toLowerCase() ? handleCorrect() : handleIncorrect()
+    console.log(questionAnswer.toLowerCase())
+    console.log(answer.toLowerCase())
   }
  
   return (

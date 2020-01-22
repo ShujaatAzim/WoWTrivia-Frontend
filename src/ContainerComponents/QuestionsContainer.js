@@ -4,16 +4,27 @@ import Question from '../Components/Question'
 const QuestionContainer = props => {
 
   const [generated, setGenerated] = useState(false)
+  const [score, setScore] = useState(0)
+  const [correct, setCorrect] = useState(false)
+  const [incorrect, setIncorrect] = useState(false)
 
   const handleClick = () => {
-    setGenerated(true)
+    setGenerated(!generated)
     props.randomQuestionGen()
   }
  
   return (
     <div>
-      <button onClick={handleClick}>Get Question</button>
-      {generated ? <Question question={props.randomQuestion} /> : null}
+      <p>Score: {score}</p>
+      <button onClick={handleClick}>{ generated ? "End" : "Start" }</button>
+      { generated ? 
+        <div>
+          <Question question={props.randomQuestion} randomQuestiongen={props.randomQuestionGen} score={score} setScore={setScore} 
+            setCorrect={setCorrect} setIncorrect={setIncorrect}/>
+          <br /><button onClick={() => {setCorrect(false);setIncorrect(false);props.randomQuestionGen();}}>Next Question</button>
+        </div> : null
+      }
+      {correct ? "Correct!" : incorrect ? "Incorrect!" : null }
     </div>
   )
 }
