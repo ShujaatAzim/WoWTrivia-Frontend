@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import QuestionContainer from './ContainerComponents/QuestionsContainer'
+import './Styles/App.css'
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
   }
  
   return (
-    <div>
+    <div className="center">
       <h1>WoW Trivia</h1>
       <QuestionContainer randomQuestionGen={randomQuestionGen} randomQuestion={randomQuestion} />
     </div>

@@ -19,11 +19,11 @@ const QuestionContainer = props => {
       <button onClick={handleClick}>{ generated ? "End" : "Start" }</button>
       { generated ? 
         <div>
-          <Question question={props.randomQuestion} randomQuestiongen={props.randomQuestionGen} score={score} setScore={setScore} 
+          <Question question={props.randomQuestion} randomQuestionGen={props.randomQuestionGen} score={score} setScore={setScore} 
             setCorrect={setCorrect} setIncorrect={setIncorrect}/>
-          <br /><button onClick={() => {setCorrect(false);setIncorrect(false);props.randomQuestionGen();}}>Next Question</button>
         </div> : null
       }
+      <br />
       {correct ? "Correct!" : incorrect ? "Incorrect!" : null }
     </div>
   )
