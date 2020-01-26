@@ -19,7 +19,7 @@ function App() {
   const randomQuestionGen = () => {
     let questionBank = [...unansweredQuestions]
     let randomIndex = Math.floor(Math.random() * (questionBank.length))
-    if (questionBank !== []) {
+    if (unansweredQuestions.length !== 0) {
       setRandomQuestion(questionBank[randomIndex])
       let remainingQuestions = questionBank.filter(question => questionBank.indexOf(question) !== randomIndex)
       setUnansweredQuestions(remainingQuestions)
@@ -37,9 +37,10 @@ function App() {
   return (
     <div className="center">
       <h1>WoW Trivia</h1>
+      
       { !generated ? <button onClick={handleClick}>Start</button> : null }
       { generated ? <QuestionContainer questionNumber={questionNumber} setQuestionNumber={setQuestionNumber} 
-        randomQuestionGen={randomQuestionGen} randomQuestion={randomQuestion} allQuestions={allQuestions}/> : null }  
+        randomQuestionGen={randomQuestionGen} randomQuestion={randomQuestion} allQuestions={allQuestions} /> : null }  
     </div>
   );
 }

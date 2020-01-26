@@ -30,7 +30,7 @@ const Question = props => {
   }
  
   return (
-    <div>
+    <div className="question-card">
       <p>{props.question.text}</p>
       <div>
         <form onSubmit={handleSubmit}>
