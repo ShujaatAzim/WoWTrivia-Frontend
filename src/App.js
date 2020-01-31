@@ -17,6 +17,7 @@ function App() {
   }, [])
 
   const randomQuestionGen = () => {
+    let somthing = []
     let questionBank = [...unansweredQuestions]
     let randomIndex = Math.floor(Math.random() * (questionBank.length))
     if (unansweredQuestions.length !== 0) {
