@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import QuestionContainer from './ContainerComponents/QuestionsContainer'
+import AddQuestionForm from './Components/AddQuestionForm'
 import './Styles/App.css'
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   const [randomQuestion, setRandomQuestion] = useState({text: ""})
   const [questionNumber, setQuestionNumber] = useState(0)
   const [generated, setGenerated] = useState(false)
+  const [addingQuestion, setAddingQuestion] = useState(false)
 
   useEffect(() => {
     fetch('http://localhost:3000/questions')
@@ -17,7 +19,6 @@ function App() {
   }, [])
 
   const randomQuestionGen = () => {
-    let somthing = []
     let questionBank = [...unansweredQuestions]
     let randomIndex = Math.floor(Math.random() * (questionBank.length))
     if (unansweredQuestions.length !== 0) {
@@ -38,10 +39,16 @@ function App() {
   return (
     <div className="center">
       <h1>WoW Trivia</h1>
-      
-      { !generated ? <button onClick={handleClick}>Start</button> : null }
-      { generated ? <QuestionContainer questionNumber={questionNumber} setQuestionNumber={setQuestionNumber} 
-        randomQuestionGen={randomQuestionGen} randomQuestion={randomQuestion} allQuestions={allQuestions} /> : null }  
+      <div>
+        { !generated && !addingQuestion ? <button onClick={handleClick}>Start</button> : null }
+        { generated ? <QuestionContainer questionNumber={questionNumber} setQuestionNumber={setQuestionNumber} 
+          randomQuestionGen={randomQuestionGen} randomQuestion={randomQuestion} allQuestions={allQuestions} /> : null }  
+      </div>
+      <br />
+      <div>
+        { !addingQuestion && !generated ? <button onClick={() => setAddingQuestion(true)}>Add a Question</button> : null }
+        { addingQuestion ? <AddQuestionForm setAddingQuestion={setAddingQuestion} /> : null }
+      </div>
     </div>
   );
 }
