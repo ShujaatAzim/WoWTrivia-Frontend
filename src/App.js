@@ -37,7 +37,7 @@ function App() {
   }
  
   return (
-    <div className="center">
+    <div className="whole">
       <h1>WoW Trivia</h1>
       <div>
         { !generated && !addingQuestion ? <button onClick={handleClick}>Start</button> : null }

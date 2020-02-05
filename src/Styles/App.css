@@ -1,5 +1,6 @@
-.center {
+.whole {
   text-align: center;
+  background-color: whitesmoke;
 }
 
 .question-card {
