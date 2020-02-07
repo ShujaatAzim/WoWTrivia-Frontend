@@ -6,6 +6,7 @@ import './Styles/App.css'
 function App() {
 
   const [allQuestions, setAllQuestions] = useState([])
+  const [allCategories, setAllCategories] = useState([])
   const [unansweredQuestions, setUnansweredQuestions] = useState([])
   const [randomQuestion, setRandomQuestion] = useState({text: ""})
   const [questionNumber, setQuestionNumber] = useState(0)
@@ -16,6 +17,10 @@ function App() {
     fetch('http://localhost:3000/questions')
     .then(resp => resp.json())
     .then(data => {setAllQuestions(data);setUnansweredQuestions(data);})
+
+    fetch('http://localhost:3000/categories')
+    .then(resp => resp.json())
+    .then(moreData => setAllCategories(moreData))
   }, [])
 
   const randomQuestionGen = () => {
@@ -47,7 +52,7 @@ function App() {
       <br />
       <div>
         { !addingQuestion && !generated ? <button onClick={() => setAddingQuestion(true)}>Add a Question</button> : null }
-        { addingQuestion ? <AddQuestionForm setAddingQuestion={setAddingQuestion} /> : null }
+        { addingQuestion ? <AddQuestionForm categories={allCategories} setAddingQuestion={setAddingQuestion} /> : null }
       </div>
     </div>
   );

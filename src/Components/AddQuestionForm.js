@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react'
-import Category from '../Components/Category'
+import Creatable from 'react-select/creatable'
 
 const AddQuestionForm = props => {
 
   const [questionText, setQuestionText] = useState("")
   const [answerText, setAnswerText] = useState("")
-  const [difficultyText, setDifficultyText] = useState("")
-  const [categories, setCategories] = useState([])
-
-  let newCategories = []
+  const [difficultyText, setDifficultyText] = useState("Easy")
+  const [options, setOptions] = useState([])
+  const [selectedCategories, setSelectedCategories] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3000/categories')
-    .then(resp => resp.json())
-    .then(data => setCategories(data))
-  }, [])
+    const createCategories = () => {
+      let values = []
+      props.categories.map(category => {
+        return values.push({value: category.name, label: category.name})
+      })
+      setOptions(values)
+    }
+    createCategories()
+  }, [props.categories])
 
   const submitQuestion = event => {
     event.preventDefault()
-    let newerCategories = newCategories.filter(category => category !== "")
+    let newerCategories = selectedCategories.map(category => {return { name: category.value} })
     let newQuestion = {"text": questionText, "answer": answerText, "difficulty": difficultyText, "categories": newerCategories}
     fetch('http://localhost:3000/questions', {
       method: "POST",
@@ -29,8 +33,11 @@ const AddQuestionForm = props => {
       body: JSON.stringify(newQuestion)
     })
     .then(props.setAddingQuestion(false))
-    .then(console.log(newCategories))
-    .then(console.log(newerCategories))
+    .then(console.log(newQuestion))
+  }
+
+  const handleCategories = selectedOption => {
+    setSelectedCategories(selectedOption)
   }
 
   return (
@@ -48,9 +55,8 @@ const AddQuestionForm = props => {
             <option>Medium</option>
             <option>Hard</option>
           </select>
-          <select multiple value={newCategories} onChange={e => newCategories.push(e.target.value)}>
-            {categories.map(category => <Category key={category.id} category={category} />)}
-          </select>
+          <label>Categories:</label>
+          <Creatable isMulti options={options} onChange={handleCategories} />
           <input type="submit" />
         </form>
       </div>
