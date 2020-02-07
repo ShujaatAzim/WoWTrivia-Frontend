@@ -33,7 +33,15 @@ function App() {
       setQuestionNumber(questionNumber + 1)
     } else {
       setGenerated(false)
+      setQuestionNumber(0)
+      getQuestions()
     }
+  }
+
+  const getQuestions = () => {
+    fetch('http://localhost:3000/questions')
+    .then(resp => resp.json())
+    .then(data => {setAllQuestions(data);setUnansweredQuestions(data);})
   }
 
   const handleClick = () => {
@@ -52,7 +60,7 @@ function App() {
       <br />
       <div>
         { !addingQuestion && !generated ? <button onClick={() => setAddingQuestion(true)}>Add a Question</button> : null }
-        { addingQuestion ? <AddQuestionForm categories={allCategories} setAddingQuestion={setAddingQuestion} /> : null }
+        { addingQuestion ? <AddQuestionForm getQuestions={getQuestions} categories={allCategories} setAddingQuestion={setAddingQuestion} /> : null }
       </div>
     </div>
   );

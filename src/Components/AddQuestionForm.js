@@ -34,6 +34,7 @@ const AddQuestionForm = props => {
     })
     .then(props.setAddingQuestion(false))
     .then(console.log(newQuestion))
+    .then(() => props.getQuestions())
   }
 
   const handleCategories = selectedOption => {
