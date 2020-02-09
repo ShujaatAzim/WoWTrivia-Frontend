@@ -12,6 +12,7 @@ function App() {
   const [questionNumber, setQuestionNumber] = useState(0)
   const [generated, setGenerated] = useState(false)
   const [addingQuestion, setAddingQuestion] = useState(false)
+  const [lastFiveScores, setLastFiveScores] = useState(0)
 
   useEffect(() => {
     fetch('http://localhost:3000/questions')
@@ -55,13 +56,21 @@ function App() {
       <div>
         { !generated && !addingQuestion ? <button onClick={handleClick}>Start</button> : null }
         { generated ? <QuestionContainer questionNumber={questionNumber} setQuestionNumber={setQuestionNumber} 
-          randomQuestionGen={randomQuestionGen} randomQuestion={randomQuestion} allQuestions={allQuestions} /> : null }  
+          randomQuestionGen={randomQuestionGen} randomQuestion={randomQuestion} allQuestions={allQuestions} 
+          setLastFiveScores={setLastFiveScores}/> : null }  
       </div>
       <br />
       <div>
         { !addingQuestion && !generated ? <button onClick={() => setAddingQuestion(true)}>Add a Question</button> : null }
         { addingQuestion ? <AddQuestionForm getQuestions={getQuestions} categories={allCategories} setAddingQuestion={setAddingQuestion} /> : null }
       </div>
+      <div>
+          Latest Scores:
+          <ol>
+            {lastFiveScores}
+            {/* {lastFiveScores.map(s => <li>{s}</li>)} */}
+          </ol>
+        </div>
     </div>
   );
 }
