@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Question from '../Components/Question'
 
 const QuestionContainer = props => {
 
-  const [score, setScore] = useState(0)
   const [correct, setCorrect] = useState(false)
   const [incorrect, setIncorrect] = useState(false)
- 
-  useEffect(() => {
-    return () => {
-      props.setLastFiveScores(score)
-    }
-  }, [])
+
+  const {score, setScore} = props
 
   return (
     <div>
-      <p>Score: {score}</p>
+      <p>Score: {props.score}</p>
       <p>Question #{props.questionNumber}</p>
         <div>
           <Question question={props.randomQuestion} randomQuestionGen={props.randomQuestionGen} score={score} 

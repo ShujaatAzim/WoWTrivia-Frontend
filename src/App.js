@@ -12,7 +12,8 @@ function App() {
   const [questionNumber, setQuestionNumber] = useState(0)
   const [generated, setGenerated] = useState(false)
   const [addingQuestion, setAddingQuestion] = useState(false)
-  const [lastFiveScores, setLastFiveScores] = useState(0)
+  const [lastFiveScores, setLastFiveScores] = useState([])
+  const [score, setScore] = useState(0)
 
   useEffect(() => {
     fetch('http://localhost:3000/questions')
@@ -33,8 +34,13 @@ function App() {
       setUnansweredQuestions(remainingQuestions)
       setQuestionNumber(questionNumber + 1)
     } else {
-      setGenerated(false)
+      let newScores = [...lastFiveScores]
+      newScores.push(score + 1)
+      setLastFiveScores(newScores)
       setQuestionNumber(0)
+      setScore(0)
+      setGenerated(false)
+      setAllQuestions([])
       getQuestions()
     }
   }
@@ -57,7 +63,7 @@ function App() {
         { !generated && !addingQuestion ? <button onClick={handleClick}>Start</button> : null }
         { generated ? <QuestionContainer questionNumber={questionNumber} setQuestionNumber={setQuestionNumber} 
           randomQuestionGen={randomQuestionGen} randomQuestion={randomQuestion} allQuestions={allQuestions} 
-          setLastFiveScores={setLastFiveScores}/> : null }  
+          score={score} setScore={setScore}/> : null }  
       </div>
       <br />
       <div>
@@ -67,8 +73,7 @@ function App() {
       <div>
           Latest Scores:
           <ol>
-            {lastFiveScores}
-            {/* {lastFiveScores.map(s => <li>{s}</li>)} */}
+            {lastFiveScores.map(s => <li>{s}</li>)}
           </ol>
         </div>
     </div>
