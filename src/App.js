@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import QuestionContainer from './ContainerComponents/QuestionsContainer'
 import AddQuestionForm from './Components/AddQuestionForm'
 import './Styles/App.css'
+import ScoresContainer from './ContainerComponents/ScoresContainer';
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
   const [addingQuestion, setAddingQuestion] = useState(false)
   const [lastFiveScores, setLastFiveScores] = useState([])
   const [score, setScore] = useState(0)
+  const [showingScore, setShowingScore] = useState(false)
 
   useEffect(() => {
     fetch('http://localhost:3000/questions')
@@ -35,7 +37,7 @@ function App() {
       setQuestionNumber(questionNumber + 1)
     } else {
       let newScores = [...lastFiveScores]
-      newScores.push(score + 1)
+      newScores.unshift(score + 1)
       setLastFiveScores(newScores)
       setQuestionNumber(0)
       setScore(0)
@@ -70,12 +72,12 @@ function App() {
         { !addingQuestion && !generated ? <button onClick={() => setAddingQuestion(true)}>Add a Question</button> : null }
         { addingQuestion ? <AddQuestionForm getQuestions={getQuestions} categories={allCategories} setAddingQuestion={setAddingQuestion} /> : null }
       </div>
+      <br />
       <div>
-          Latest Scores:
-          <ol>
-            {lastFiveScores.map(s => <li>{s}</li>)}
-          </ol>
-        </div>
+        { !addingQuestion && !generated ? <button onClick={() => setShowingScore(!showingScore)}>
+          { showingScore ? "Hide Scores" : "Show Scores" }</button> : null }
+        { showingScore ? <div><br /><ScoresContainer lastFiveScores={lastFiveScores}/></div> : null }
+      </div>
     </div>
   );
 }
