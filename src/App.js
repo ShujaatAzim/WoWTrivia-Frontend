@@ -3,8 +3,41 @@ import QuestionContainer from './ContainerComponents/QuestionsContainer'
 import AddQuestionForm from './Components/AddQuestionForm'
 import './Styles/App.css'
 import ScoresContainer from './ContainerComponents/ScoresContainer';
+import { connect } from 'react-redux'
+import {increment, decrement, reset } from './actions'
 
-function App() {
+//testing redux
+const mapStateToProps = state => {
+  return {
+    count: state.count
+  }
+}
+
+const mapDispatchToProps = {
+  increment,
+  decrement,
+  reset
+}
+
+//end redux
+
+const App = props => {
+
+  // testing redux
+
+  const increment = () => {
+    props.increment()
+  }
+
+  const decrement = () => {
+    props.decrement()
+  }
+
+  const reset = () => {
+    props.reset()
+  }
+
+  //end redux
 
   const [allQuestions, setAllQuestions] = useState([])
   const [allCategories, setAllCategories] = useState([])
@@ -61,6 +94,13 @@ function App() {
   return (
     <div className="whole">
       <h1>WoW Trivia</h1>
+      {/* Testing Redux here */}
+      <hr />
+      <h6>Testing Redux</h6>
+      <p>{props.count}</p>
+      <button onClick={increment}>Add</button><button onClick={decrement}>Subtract</button><button onClick={reset}>Reset</button>
+      <hr /><br /><br />
+      {/* End redux Test */}
       <div>
         { !generated && !addingQuestion ? <button onClick={handleClick}>Start</button> : null }
         { generated ? <QuestionContainer questionNumber={questionNumber} setQuestionNumber={setQuestionNumber} 
@@ -82,4 +122,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
