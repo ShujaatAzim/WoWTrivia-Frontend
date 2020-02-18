@@ -1,35 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import store from './Store/store'
 
-const initialState = {
-  count: 0
-}
-
-const reducer = (state = initialState, action) => {
-  switch(action.type) {
-    case "INCREMENT":
-      return {
-        count: state.count + 1
-      };
-    case "DECREMENT":
-      return {
-        count: state.count - 1
-      };
-    case "RESET":
-    return {
-      count: 0
-      };
-    default:
-      return state;
-  }
-}
-
-const store = createStore(reducer, applyMiddleware(thunk));
+window.store = store
 
 ReactDOM.render(
   <Provider store={store}>
