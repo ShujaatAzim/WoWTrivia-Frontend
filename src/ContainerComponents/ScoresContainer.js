@@ -1,13 +1,11 @@
 import React from 'react'
+import Score from '../Components/Score'
 
 const ScoresContainer = props => {
 
   return(
     <div>
-      Scores: 
-      <div>
-        {props.lastFiveScores.map(score => <p>{score}</p>)}
-      </div>
+      <Score />
     </div>
   )
 }
