@@ -1,6 +1,6 @@
 import React from 'react'
 
-const AddQuestionForm = props => {
+const AddQuestionForm = () => {
 
   return (
     <div>
