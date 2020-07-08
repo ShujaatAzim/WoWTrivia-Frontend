@@ -7,6 +7,7 @@ const App = () => {
     <div>
       <h1>WoW Trivia</h1>
       <button>Start</button>
+      <button>Login</button>
     </div>
   )
 }
