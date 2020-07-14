@@ -6,7 +6,9 @@ const Score = () => {
       <h1>
         Score: 0
       </h1>
-      <div></div>
+      <div>
+        
+      </div>
     </div>
   )
 }
