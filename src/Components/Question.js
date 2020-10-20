@@ -23,6 +23,10 @@ const Question = props => {
         <input type="text" value={answer} onChange={(e) => setAnswer(e.target.value)} />
         <button type="submit">Submit Answer</button>
       </form>
+      <h4>Categories:</h4>
+      <ul>
+        { question.categories.map(category => <li key={category.name}>{category.name}</li>) }
+      </ul>
     </div>
   )
 }
