@@ -1,10 +1,10 @@
 import React from 'react'
 
-const Question = () => {
+const Question = props => {
  
   return (
     <div>
-      <h3>Question 1</h3>
+      <h3>{props.text}</h3>
     </div>
   )
 }
